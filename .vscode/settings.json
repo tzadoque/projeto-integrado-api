@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    "docker": true,
+    "yarn.lock": true,
+    "yarn-error.log": true,
+    ".prettierrc": true,
+    "README.md": true,
+    ".gitignore": true,
+  }
+}
