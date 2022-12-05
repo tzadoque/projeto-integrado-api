@@ -1,0 +1,233 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Api do Projeto Integrado",
+    "description": "Essa api tem como objetivo cumprir a avaliação final da matéria de POS (Programação Orientada a Serviços)",
+    "contact": {
+      "name": "Zadoque Teófilo",
+      "email": "zadoque.dev@gmail.com",
+      "url": "https://github.com/tzadoque"
+    },
+    "version": "1.0"
+  },
+  "servers": [{ "url": "http://localhost:3000/v1" }],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "CRUD da tabela de usuários"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Listagem de usuários",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "name": "Zadoque Teófilo",
+                    "email": "zadoque.dev@gmail.com",
+                    "createdAt": "2022-12-05T01:22:18.041Z",
+                    "updatedAt": "2022-12-05T01:22:18.041Z"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Nome Sobrenome",
+                    "email": "exemplo@exemplo.com",
+                    "createdAt": "2022-12-05T01:22:20.041Z",
+                    "updatedAt": "2022-12-05T01:22:20.041Z"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Criação de usuários",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "exemplo 1": {
+                  "value": {
+                    "name": "Zadoque Teófilo",
+                    "email": "zadoque.dev@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "Zadoque Teófilo",
+                  "email": "zadoque.dev@gmail.com",
+                  "createdAt": "2022-12-05T01:22:18.041Z",
+                  "updatedAt": "2022-12-05T01:22:18.041Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Procurar um usuário pelo ID",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "Zadoque Teófilo",
+                  "email": "zadoque.dev@gmail.com",
+                  "createdAt": "2022-12-05T01:22:18.041Z",
+                  "updatedAt": "2022-12-05T01:22:18.041Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Atualizar dados de um usuário pelo ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/User"
+              },
+              "example": {
+                "name": "Zadoque Teófilo",
+                "email": "zadoque.email@teste.com"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "Zadoque Teófilo",
+                  "email": "zadoque.dev@gmail.com",
+                  "createdAt": "2022-12-05T01:22:18.041Z",
+                  "updatedAt": "2022-12-05T01:22:18.041Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Deletar um usuário pelo ID",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Usuário #3 deletado com sucesso!"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
