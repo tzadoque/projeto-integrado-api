@@ -6,3 +6,5 @@ yarn-error.log
 yarn.lock
 
 .vscode
+
+src/database/db.sqlite
