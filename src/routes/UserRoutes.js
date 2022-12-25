@@ -4,7 +4,8 @@ const UserController = require('../controllers/UserController');
 const userRoutes = express.Router();
 
 userRoutes.get('/', UserController.findAll);
-userRoutes.get('/:id', UserController.findById);
+userRoutes.get('/id/:id', UserController.findById);
+userRoutes.get('/cpf/:cpf', UserController.findByCpf);
 
 userRoutes.post('/', UserController.create);
 userRoutes.put('/:id', UserController.update);
