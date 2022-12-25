@@ -6,7 +6,13 @@ Para rodar o projeto você precisa ter o [NodeJs](https://nodejs.org/) instalado
 
 ---
 
-Primeiramente é preciso instalar todas as dependências listadas no package.json usando os seguintes comandos:
+Primeiramente, faça um clone do projeto:
+
+```
+$ git clone https://github.com/tzadoque/projeto-integrado-api.git
+```
+
+Instale todas as dependências listadas no package.json usando os seguintes comandos:
 
 ```
 $ npm i
