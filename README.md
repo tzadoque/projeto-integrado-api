@@ -2,7 +2,7 @@
 
 ## Tutorial para instalar e rodar o projeto
 
-Para rodar o projeto você precisa ter o [NodeJs]('https://nodejs.org/') instalado em sua máquina, além de algum gerenciador de pacotes (no tutorial dou o exemplo utilizando `npm` e `yarn`).
+Para rodar o projeto você precisa ter o [NodeJs](https://nodejs.org/) instalado em sua máquina, além de algum gerenciador de pacotes (no tutorial dou o exemplo utilizando `npm` e `yarn`).
 
 ---
 
