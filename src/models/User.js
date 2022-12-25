@@ -6,9 +6,21 @@ class User extends Model {
       {
         name: DataTypes.STRING,
         email: DataTypes.STRING,
+        cpf: DataTypes.STRING,
+        password: DataTypes.STRING,
       },
       {
         sequelize: connection,
+        defaultScope: {
+          attributes: {
+            exclude: ['password'],
+          },
+        },
+        scopes: {
+          withPassword: {
+            attributes: {},
+          },
+        },
       }
     );
   }
