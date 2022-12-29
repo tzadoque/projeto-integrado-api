@@ -19,11 +19,7 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const user = await User.findOne({
-        where: {
-          id: Number(id),
-        },
-      });
+      const user = await User.findByPk(id);
 
       if (!user) {
         return res.json({ message: 'Usuário não encontrado' });
@@ -147,11 +143,7 @@ module.exports = {
       const { cpf, name, email, password, confirmPassword } = req.body;
       const updatedFields = {};
 
-      const user = await User.findOne({
-        where: {
-          id: Number(id),
-        },
-      });
+      const user = await User.findByPk(id);
 
       // validação do nome
       if (name) {
@@ -238,11 +230,7 @@ module.exports = {
       });
 
       // buscando usuário atualizado para exibir no log
-      const updatedUser = await User.findOne({
-        where: {
-          id: Number(id),
-        },
-      });
+      const updatedUser = await User.findByPk(id);
 
       return res.json(updatedUser);
     } catch (e) {
