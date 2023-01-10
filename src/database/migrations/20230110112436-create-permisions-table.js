@@ -3,30 +3,19 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.createTable('adresses', {
+    return queryInterface.createTable('permissions', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'users', key: 'id' },
-        onUpdate: 'CASCADE',
-        onUpdate: 'CASCADE',
-      },
-      zipcode: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      street: {
+      description: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      number: {
-        type: Sequelize.INTEGER,
         allowNull: false,
       },
       created_at: {
@@ -41,6 +30,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('adresses');
+    return queryInterface.dropTable('permissions');
   },
 };

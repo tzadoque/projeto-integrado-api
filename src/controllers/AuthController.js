@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const Users = require('../models/Users');
 const validateCPF = require('../hooks/validateCPF.js');
 const bcrypt = require('bcrypt');
 const generateToken = require('../hooks/generateToken.js');
@@ -16,7 +16,7 @@ module.exports = {
         return res.json({ message: 'O cpf informado não é válido' });
       }
 
-      const user = await User.scope('withPassword').findOne({
+      const user = await Users.scope('withPassword').findOne({
         where: {
           cpf: cpf,
         },

@@ -1,14 +1,14 @@
-const User = require('../models/User');
+const Users = require('../models/Users.js');
 const validateCPF = require('../hooks/validateCPF.js');
-const isAnInvalidPassword = require('../hooks/validatePassword');
 const isAnInvalidEmail = require('../hooks/validateEmail.js');
+const isAnInvalidPassword = require('../hooks/validatePassword');
 const bcrypt = require('bcrypt');
 const generateToken = require('../hooks/generateToken');
 
 module.exports = {
   async findAll(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await Users.findAll();
       return res.json(users);
     } catch (e) {
       return res.json(e.message);
@@ -19,7 +19,7 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const user = await User.findByPk(id);
+      const user = await Users.findByPk(id);
 
       if (!user) {
         return res.json({ message: 'Usuário não encontrado' });
@@ -35,7 +35,7 @@ module.exports = {
     try {
       const { cpf } = req.params;
 
-      const user = await User.findOne({
+      const user = await Users.findOne({
         where: {
           cpf: cpf,
         },
@@ -75,7 +75,7 @@ module.exports = {
         return res.status(400).json({ message });
       }
 
-      const checkUserEmail = await User.findOne({
+      const checkUserEmail = await Users.findOne({
         where: {
           email: email,
         },
@@ -88,7 +88,7 @@ module.exports = {
       }
 
       // validação de cpf
-      const checkUserCpf = await User.findOne({
+      const checkUserCpf = await Users.findOne({
         where: {
           cpf: cpf,
         },
@@ -124,7 +124,7 @@ module.exports = {
       const passwordHash = await bcrypt.hash(password, salt);
 
       // criando o usuário
-      const newUser = await User.create({
+      const newUser = await Users.create({
         name,
         email,
         cpf,
@@ -143,7 +143,7 @@ module.exports = {
       const { cpf, name, email, password, confirmPassword } = req.body;
       const updatedFields = {};
 
-      const user = await User.findByPk(id);
+      const user = await Users.findByPk(id);
 
       // validação do nome
       if (name) {
@@ -163,7 +163,7 @@ module.exports = {
           return res.status(400).json({ message });
         }
 
-        const checkUserEmail = await User.findOne({
+        const checkUserEmail = await Users.findOne({
           where: {
             email: email,
           },
@@ -180,7 +180,7 @@ module.exports = {
 
       // validação de cpf
       if (cpf) {
-        const checkUserCpf = await User.findOne({
+        const checkUserCpf = await Users.findOne({
           where: {
             cpf: cpf,
           },
@@ -230,7 +230,7 @@ module.exports = {
       });
 
       // buscando usuário atualizado para exibir no log
-      const updatedUser = await User.findByPk(id);
+      const updatedUser = await Users.findByPk(id);
 
       return res.json(updatedUser);
     } catch (e) {
@@ -242,7 +242,7 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      await User.destroy({
+      await Users.destroy({
         where: {
           id: Number(id),
         },
