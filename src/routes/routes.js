@@ -15,7 +15,7 @@ routes.get('/', authMiddleware, (req, res) => {
   return res.json({ message: 'API do Projeto Integrado' });
 });
 
-routes.use('/users', userRoutes);
+routes.use('/', userRoutes);
 routes.use('/auth', authRoutes);
 routes.use('/', addressRoutes);
 routes.use('/', roleRoutes);

@@ -9,6 +9,8 @@ roleRoutes.get('/users/:user_id/roles', RoleController.findUserRoles);
 roleRoutes.post('/roles', RoleController.create);
 roleRoutes.post('/users/:user_id/roles', RoleController.assignRoleToUser);
 
+roleRoutes.put('/roles/:role_id', RoleController.update);
+
 roleRoutes.delete('/roles/:role_id', RoleController.delete);
 roleRoutes.delete('/users/:user_id/roles', RoleController.removeRoleForUser);
 

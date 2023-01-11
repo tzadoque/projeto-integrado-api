@@ -145,6 +145,10 @@ module.exports = {
 
       const user = await Users.findByPk(id);
 
+      if (!user) {
+        return res.json({ message: `User not found` });
+      }
+
       // validação do nome
       if (name) {
         if (name.length < 3) {
@@ -223,7 +227,7 @@ module.exports = {
       }
 
       // atualizando o usuário
-      await User.update(updatedFields, {
+      await Users.update(updatedFields, {
         where: {
           id: Number(id),
         },

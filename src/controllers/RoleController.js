@@ -55,7 +55,12 @@ module.exports = {
     const { role_name } = req.body;
 
     try {
-      const user = await Users.findByPk(user_id);
+      const user = await Users.findByPk(user_id, {
+        include: {
+          association: 'roles',
+          through: { attributes: [] },
+        },
+      });
 
       if (!user) {
         return res.json({ message: 'User not found' });
@@ -67,10 +72,16 @@ module.exports = {
         return res.json({ message: 'Role not found' });
       }
 
+      if (user.roles.filter((role) => role.name == role_name).length) {
+        return res.json({
+          message: `User ${user.name} already has role '${role.name}'`,
+        });
+      }
+
       await user.addRole(role);
 
       return res.json({
-        message: `Role '${role.name}' assigned to user #${user.name}`,
+        message: `Role '${role.name}' assigned to user ${user.name}`,
       });
     } catch (e) {
       return res.json(e.message);
@@ -112,6 +123,48 @@ module.exports = {
       return res.json({
         message: `'${role.name}' role removed from ${user.name} user`,
       });
+    } catch (e) {
+      return res.json(e.message);
+    }
+  },
+
+  async update(req, res) {
+    const { role_id } = req.params;
+    const { name, description } = req.body;
+
+    const roles = await Roles.findAll();
+
+    const checkIfNameAlreadyExists = roles.filter((role) => {
+      return role.name == name;
+    });
+
+    if (checkIfNameAlreadyExists.length > 0) {
+      return res.json({
+        message: `Role with name '${name}' already exists`,
+      });
+    }
+
+    const updatedFields = {
+      name,
+      description,
+    };
+
+    try {
+      const role = await Roles.findByPk(role_id);
+
+      if (!role) {
+        return res.json({ message: `Role not found` });
+      }
+
+      await Roles.update(updatedFields, {
+        where: {
+          id: Number(role_id),
+        },
+      });
+
+      const updatedRole = await Roles.findByPk(role_id);
+
+      return res.json({ message: `Role updated successfully`, updatedRole });
     } catch (e) {
       return res.json(e.message);
     }
