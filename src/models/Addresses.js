@@ -22,7 +22,7 @@ class Addresses extends Model {
   static associate(models) {
     this.belongsTo(models.Users, {
       foreignKey: 'user_id',
-      as: 'address owner',
+      as: 'owner',
     });
   }
 }

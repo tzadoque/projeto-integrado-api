@@ -7,7 +7,8 @@ class PhoneNumbers extends Model {
         number: DataTypes.STRING,
       },
       {
-        sequelize,
+        sequelize: connection,
+        tableName: 'phone_numbers',
         defaultScope: {
           attributes: {
             exclude: ['createdAt', 'updatedAt'],
@@ -20,7 +21,7 @@ class PhoneNumbers extends Model {
   static associate(models) {
     this.belongsTo(models.Users, {
       foreignKey: 'user_id',
-      as: 'phone number owner',
+      as: 'owner',
     });
   }
 }

@@ -31,6 +31,11 @@ class Users extends Model {
       as: 'addresses',
     });
 
+    this.hasMany(models.PhoneNumbers, {
+      foreignKey: 'user_id',
+      as: 'phone_numbers',
+    });
+
     this.belongsToMany(models.Roles, {
       foreignKey: 'user_id',
       through: 'user_roles',
