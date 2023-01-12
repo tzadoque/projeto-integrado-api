@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 
 class Addresses extends Model {
-  static init(sequelize) {
+  static init(connection) {
     super.init(
       {
         zipcode: DataTypes.STRING,
@@ -9,7 +9,12 @@ class Addresses extends Model {
         number: DataTypes.INTEGER,
       },
       {
-        sequelize,
+        sequelize: connection,
+        defaultScope: {
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+        },
       }
     );
   }

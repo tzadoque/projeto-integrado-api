@@ -13,7 +13,7 @@ class Users extends Model {
         sequelize: connection,
         defaultScope: {
           attributes: {
-            exclude: ['password'],
+            exclude: ['password', 'createdAt', 'updatedAt'],
           },
         },
         scopes: {

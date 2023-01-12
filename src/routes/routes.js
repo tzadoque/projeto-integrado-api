@@ -8,6 +8,7 @@ const authRoutes = require('./AuthRoutes');
 const userRoutes = require('./UserRoutes');
 const addressRoutes = require('./AddressRoutes');
 const roleRoutes = require('./RoleRoutes');
+const permissionRoutes = require('./PermissionRoutes');
 
 const routes = express.Router();
 
@@ -16,8 +17,9 @@ routes.get('/', authMiddleware, (req, res) => {
 });
 
 routes.use('/', userRoutes);
-routes.use('/auth', authRoutes);
+routes.use('/', authRoutes);
 routes.use('/', addressRoutes);
 routes.use('/', roleRoutes);
+routes.use('/', permissionRoutes);
 
 module.exports = routes;

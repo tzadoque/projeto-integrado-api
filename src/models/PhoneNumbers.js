@@ -1,13 +1,18 @@
 const { Model, DataTypes } = require('sequelize');
 
 class PhoneNumbers extends Model {
-  static init(sequelize) {
+  static init(connection) {
     super.init(
       {
         number: DataTypes.STRING,
       },
       {
         sequelize,
+        defaultScope: {
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+        },
       }
     );
   }

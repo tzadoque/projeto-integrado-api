@@ -1,14 +1,19 @@
 const { Model, DataTypes } = require('sequelize');
 
 class Permissions extends Model {
-  static init(sequelize) {
+  static init(connection) {
     super.init(
       {
         name: DataTypes.STRING,
         description: DataTypes.STRING,
       },
       {
-        sequelize,
+        sequelize: connection,
+        defaultScope: {
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+        },
       }
     );
   }

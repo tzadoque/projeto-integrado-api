@@ -33,6 +33,14 @@ module.exports = {
   async create(req, res) {
     const { name, description } = req.body;
 
+    if (!name) {
+      return res.json({ message: `'name' is required` });
+    }
+
+    if (!description) {
+      return res.json({ message: `'description' is required` });
+    }
+
     try {
       const [role, created] = await Roles.findOrCreate({
         where: { name },
@@ -132,18 +140,6 @@ module.exports = {
     const { role_id } = req.params;
     const { name, description } = req.body;
 
-    const roles = await Roles.findAll();
-
-    const checkIfNameAlreadyExists = roles.filter((role) => {
-      return role.name == name;
-    });
-
-    if (checkIfNameAlreadyExists.length > 0) {
-      return res.json({
-        message: `Role with name '${name}' already exists`,
-      });
-    }
-
     const updatedFields = {
       name,
       description,
@@ -154,6 +150,18 @@ module.exports = {
 
       if (!role) {
         return res.json({ message: `Role not found` });
+      }
+
+      const roles = await Roles.findAll();
+
+      const checkIfNameAlreadyExists = roles.filter((filteredRole) => {
+        return filteredRole.name == name && filteredRole.name != role.name;
+      });
+
+      if (checkIfNameAlreadyExists.length > 0) {
+        return res.json({
+          message: `Role with name '${name}' already exists`,
+        });
       }
 
       await Roles.update(updatedFields, {
